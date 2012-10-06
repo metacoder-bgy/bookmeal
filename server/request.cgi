@@ -12,6 +12,9 @@ require_relative 'bookmeal'
 puts 'Content-Type: application/json'
 puts ''
 
+
+begin
+
 cgi = CGI.new
 
 forum_uid = cgi['forum_uid'] || raise_client_error
@@ -21,6 +24,11 @@ action = cgi['action'] || raise_client_error
 init_db
 load_data
 
+rescue ClientError
+  puts JSON.dump({ :status => :error, :error_message => :client_error})
+rescue Exception
+  puts JSON.dump({ :status => :error, :error_message => :server_error})
+end
 
 def do_action(cgi, action, forum_uid)
   case action
@@ -68,6 +76,8 @@ def do_action(cgi, action, forum_uid)
 
       change_or_create_card_password(forum_uid, card_no, card_passwd)
     end
+
+    store_data
 
     return true
 

@@ -2,7 +2,7 @@
 
 require_relative 'exceptions.rb'
 
-#DF_FILE = '/var/db/bmdb/db.bin'
+#DB_FILE = '/var/db/bmdb/db.bin'
 DB_FILE = '/home/dp3/tmp/tmp.db'
 
 
@@ -17,7 +17,10 @@ def init_db(force = false)
 end
 
 def load_data
-  @data = Marshal.load(File.read(DB_FILE))
+  content = File.read(DB_FILE)
+  unless content.empty?
+    @data = Marshal.load(content)
+  end
 end
 
 def store_data
