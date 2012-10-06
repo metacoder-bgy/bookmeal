@@ -63,7 +63,7 @@ def clear_cards(forum_uid)
 end
 
 def get_card_password(forum_uid, card_no)
-  tmp = find_user(forum_uid).select {|x,_| x == card_no } or
+  tmp = find_user(forum_uid)[:cards].select {|x,_| x == card_no } or
     raise NoSuchCard
   return tmp.last
 end

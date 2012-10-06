@@ -38,11 +38,16 @@ def bookmeal(card_no, password)
                     :B1 => "\xb1\xa3\xb4\xe6",
                   }.merge(fields.map {|a,b| {a=>b} }.inject({}, &:merge)),
                   :cookie => cookie)
-  true
+
+#  return true
+
+
+rescue Exception
+  return false
 end
 
 
 if __FILE__ == $0
-  #  require 'ap'
-  #  ap bookmeal(card_no, passwd)
+  require 'ap'
+  ap bookmeal('11111341', '111112').net_http_res.body
 end

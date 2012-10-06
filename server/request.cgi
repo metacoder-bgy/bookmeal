@@ -10,6 +10,7 @@ require_relative 'bookmeal'
 
 
 puts 'Content-Type: application/json'
+puts 'Access-Control-Allow-Origin: *'
 puts ''
 
 
@@ -72,7 +73,7 @@ def do_action(cgi, action, forum_uid)
   when 'lscard'
     begin
       return {
-        :card_list => get_cards(forum_uid)
+        :card_list => get_cards(forum_uid).map(&:first)
       }
     rescue NoSuchForumUID
       return {
@@ -81,7 +82,11 @@ def do_action(cgi, action, forum_uid)
     end
 
   when 'savecard'
-    clear_cards(forum_uid) rescue NoSuchForumUID
+    begin
+      clear_cards(forum_uid)
+    rescue NoSuchForumUID
+      add_user(forum_uid)
+    end
 
     card_count = cgi['card_count'] || raise_client_error
     1.upto(card_count.to_i) do |x|
@@ -141,7 +146,10 @@ when Hash
 when Exception
   json_hsh = {
     :status => 'error',
-    :error_message => result.class.to_s.underscore
+    :error_message => :server_error,
+    :server_error_type => result.class.to_s.underscore,
+    :server_error_message => result.message,
+    :server_error_backtrace => result.backtrace
   }
 else
   json_hsh.merge!(:status => 'unknown',
@@ -149,8 +157,9 @@ else
 end
 
 
+puts JSON.dump(json_hsh)
 
-puts cgi['jsonp'] + '(' + JSON.dump(json_hsh) + ');'
+#puts cgi['jsonp'] + '(' + JSON.dump(json_hsh) + ');'
 
 
 
