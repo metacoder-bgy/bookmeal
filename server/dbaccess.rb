@@ -2,8 +2,8 @@
 
 require_relative 'exceptions.rb'
 
-#DB_FILE = '/var/db/bmdb/db.bin'
-DB_FILE = '/home/dp3/tmp/tmp.db'
+DB_FILE = '/var/db/bmdb/db.bin'
+#DB_FILE = '/home/dp3/tmp/tmp.db'
 
 
 @data = []
@@ -56,6 +56,10 @@ end
 def rm_card(forum_uid, card_no)
   find_user(forum_uid).delete_if {|x,_| x == card_no} or
     raise NoSuchCard
+end
+
+def clear_cards(forum_uid)
+  find_user(forum_uid)[:cards].clear
 end
 
 def get_card_password(forum_uid, card_no)

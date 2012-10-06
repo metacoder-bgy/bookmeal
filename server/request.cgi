@@ -70,17 +70,26 @@ def do_action(cgi, action, forum_uid)
     return true
 
   when 'lscard'
-    return {
-      :card_list => get_cards(forum_uid)
-    }
+    begin
+      return {
+        :card_list => get_cards(forum_uid)
+      }
+    rescue NoSuchForumUID
+      return {
+        :card_list => []
+      }
+    end
 
   when 'savecard'
+    clear_cards(forum_uid) rescue NoSuchForumUID
+
     card_count = cgi['card_count'] || raise_client_error
     1.upto(card_count.to_i) do |x|
       card_no = cgi["card#{x}_no"] || raise_client_error
-      card_passwd = cgi["card#{x}_passwd"] || raise_client_error
+      card_passwd = cgi["card#{x}_psw"] || raise_client_error
 
-      change_or_create_card_password(forum_uid, card_no, card_passwd)
+      add_card(forum_uid, card_no, card_passwd)
+#      change_or_create_card_password(forum_uid, card_no, card_passwd)
     end
 
     store_data
