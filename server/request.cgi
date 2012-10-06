@@ -26,8 +26,14 @@ load_data
 
 rescue ClientError
   puts JSON.dump({ :status => :error, :error_message => :client_error})
+  exit
 rescue Exception
-  puts JSON.dump({ :status => :error, :error_message => :server_error})
+  puts JSON.dump({ :status => :error,
+                   :error_message => :server_error,
+                   :server_error_name => $!.class.to_s,
+                   :server_error_message => $!.message
+                 })
+  exit
 end
 
 def do_action(cgi, action, forum_uid)
