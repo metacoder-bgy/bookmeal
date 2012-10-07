@@ -177,7 +177,7 @@ $(document)
 
 // Match with the notice table and handel the notice messages
 function notice_handler(notice_key, target) {
-	notice_key = (typeof notice_key == 'undefined' || notice_key == '' || notice_key == null || typeof notice_table[notice_key] == 'undefined') ? 'unknown_error' : notice_key;
+	notice_key = (typeof notice_key == 'undefined') ? 'unknown_error' : notice_key;
 	target = (typeof target == 'undefined') ? '' : target;
 	if(target != '') {
 		add_card_notice(target, notice_table[notice_key].message, notice_table[notice_key].style, notice_table[notice_key].delay);
@@ -372,7 +372,7 @@ function book_meal_start() {
 			}
 		}
 
-		if((forum_uid < 1) && (typeof card_psw == 'undefined' || card_psw == '' || card_psw == null)) {
+		if((forum_uid < 1) && (typeof card_psw == 'undefined' && card_psw != '' && card_psw != null)) {
 			notice_handler('no_password', card_no);
 		} else {
 			card_e(card_no, 'btn')
@@ -414,7 +414,7 @@ function book_meal_start() {
 function card_e(card_no, target) {
 	var table = $(card_table);
 	target = (typeof target == 'undefined') ? '' : target;
-	e_card_no_input = table.find('input[value=' + card_no + ']:first');
+	e_card_no_input = table.find('input[value="' + card_no + '"]:first');
 	switch(target) {
 	case 'tr':
 		return e_card_no_input.closest('tr');
@@ -429,7 +429,7 @@ function card_e(card_no, target) {
 		break;
 	case 'btn':
 		return e_card_no_input.closest('tr')
-			.find('a[name=card_btn]:first');
+			.find('a[name="card_btn"]:first');
 		break;
 	}
 	return e_card_no_input;

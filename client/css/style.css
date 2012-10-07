@@ -124,7 +124,7 @@ div.notice.general{
 	margin-bottom: 10px;
 }
 
-div.notice.common{
+div.notice.general.common{
 	border-color:rgba(145, 255, 5, 0.5);
 	background-color:rgba(18, 150, 0, 0.6);
 	color:#AAFF83;
