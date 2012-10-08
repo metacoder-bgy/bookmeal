@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: undecided -*-
 # -*- ruby -*-
 
 require 'cgi'
@@ -153,6 +154,7 @@ when Exception
   }
 else
   json_hsh.merge!(:status => 'unknown',
+                  :type => result.class.to_s,
                   :dump => result.inspect)
 end
 
