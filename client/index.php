@@ -64,8 +64,10 @@ $forum_is_login = ( $forum_uid > 0 );
 					<p>Click "Save" to store your cards info into your forum account. So that you can directly reuse them without typing them next time. Otherwise if you don't save them, you have to enter them every time and the cards info won't be saved in our server.</p>
 					<p>Click "Book Meal" to start the booking process.</p>
 					<p>If you want to delete a card, just click on the "Delete" button next to the card info.</p>
-					<p><b>Client by RixTox</b></p>
-					<p><b>Server by Shou Ya</b></p>
+		  			<p style="font-style: italic;">Did you know? This tool is an <a href="https://github.com/shouya/bookmeal">open source project.</a></p>
+		                        <hr />
+					<p>Client by <a href="//rixtox.com/">RixTox</a></p>
+					<p>Server by <a href="//github.com/shouya">Shou Ya</a></p>
 				</div>
 				<ul>
 					<!-- <li><a href="javascript:void(0)" class="btn_add_card">Add Card</a></li> -->
@@ -89,7 +91,7 @@ $forum_is_login = ( $forum_uid > 0 );
 			</table>
 	</div>
 	<div id="footer">
-		<p>Copyright &copy; 2012, CGS Forum.</p>
+		<p>Copyright &copy; 2012, <a href="//bgy.xxx" title="Forum homepage">CGS Forum.</a></p>
 	</div>
 </body>
 </html>
