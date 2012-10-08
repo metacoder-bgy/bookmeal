@@ -18,6 +18,43 @@ $forum_is_login = ( $forum_uid > 0 );
 
 //var_dump($forum_uid, $forum_username, $forum_is_login);
 
+function detect_ie(){
+  if(isset($_SERVER['HTTP_USER_AGENT']) &&
+     (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false))
+    return true;
+  else
+    return false;
+}
+
+if (detect_ie()){
+?>
+
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Internet Explorer is not supported.</title>
+    </head>
+    <body>
+    <h1>Choose browsers below for better experience.</h1>
+    <hr />
+    <p>
+      <ul>
+	<li><a href="http://www.google.com/chrome/">Google Chrome</a></li>
+	<li><a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a></li>
+      </ul>
+    </p>
+    <hr />
+    <p>
+      <a href="http://robertnyman.com/2009/09/09/fuck-ie-gently/">Why not IE?</a>
+    </p>
+    </body>
+  </html>
+
+<?php
+  exit();
+}
+?>
+
 
 
 ?><!DOCTYPE html>
@@ -95,3 +132,4 @@ $forum_is_login = ( $forum_uid > 0 );
 	</div>
 </body>
 </html>
+
