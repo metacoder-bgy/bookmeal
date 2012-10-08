@@ -6,7 +6,7 @@ var card_row_count = 0,
 	notice_table = {
 		not_login: {
 			type: 'general_notice',
-			message: '<p>Please login first!</p>',
+			message: '<p>Login is suggested.</p>',
 			style: 'common',
 			delay: 3000
 		},

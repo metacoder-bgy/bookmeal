@@ -57,7 +57,7 @@ if (detect_ie()){
 
 
 
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -102,11 +102,13 @@ if (detect_ie()){
 					<p>Click "Book Meal" to start the booking process.</p>
 					<p>If you want to delete a card, just click on the "Delete" button next to the card info.</p>
 		  			<p style="font-style: italic;">Did you know? This tool is an <a href="https://github.com/shouya/bookmeal">open source project.</a></p>
-		                        <hr />
-					<p>Client by <a href="//rixtox.com/">RixTox</a></p>
-					<p>Server by <a href="//github.com/shouya">Shou Ya</a></p>
-				</div>
-				<ul>
+		  			<p style="border-top: 1px dotted gray; padding-top: 5px;">
+		  			  <small>Client by <a href="//rixtox.com/">RixTox</a> &bull;
+					Server by <a href="//github.com/shouya">Shou Ya</a></small>
+					</p>
+					</div>
+
+			        <ul>
 					<!-- <li><a href="javascript:void(0)" class="btn_add_card">Add Card</a></li> -->
 					<?php if($forum_is_login){?>
 					<li><a href="javascript:void(0)" class="btn_save">Save</a></li>
@@ -128,7 +130,7 @@ if (detect_ie()){
 			</table>
 	</div>
 	<div id="footer">
-		<p>Copyright &copy; 2012, <a href="//bgy.xxx" title="Forum homepage">CGS Forum.</a></p>
+		<p>Copyright &copy; 2012, Shou & Rix</p>
 	</div>
 </body>
 </html>
