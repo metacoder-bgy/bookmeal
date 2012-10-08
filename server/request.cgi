@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# -*- coding: undecided -*-
 # -*- ruby -*-
 
 require 'cgi'
@@ -144,6 +143,11 @@ when true
   json_hsh = { :status => 'ok' }
 when Hash
   json_hsh = result.merge :status => 'ok'
+when WrongCardPassword
+  json_hsh = {
+    :status => 'error',
+    :error_message => 'wrong_card_password'
+  }
 when Exception
   json_hsh = {
     :status => 'error',

@@ -65,7 +65,7 @@ end
 def get_card_password(forum_uid, card_no)
   tmp = find_user(forum_uid)[:cards].select {|x,_| x == card_no } or
     raise NoSuchCard
-  return tmp.last
+  return tmp.last.last
 end
 
 def change_card_password(forum_uid, card_no, new_card_password)

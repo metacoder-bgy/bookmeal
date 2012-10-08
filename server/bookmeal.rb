@@ -55,5 +55,6 @@ end
 
 
 if __FILE__ == $0
-  ap bookmeal('0113912', '888888')
+  require 'ap'
+  ap bookmeal('0105444', '128830')
 end
