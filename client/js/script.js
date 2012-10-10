@@ -414,7 +414,7 @@ function book_meal_start() {
 function card_e(card_no, target) {
 	var table = $(card_table);
 	target = (typeof target == 'undefined') ? '' : target;
-	e_card_no_input = table.find('input[value="' + card_no + '"]:first');
+	e_card_no_input = table.find('input[value=' + card_no + ']:first');
 	switch(target) {
 	case 'tr':
 		return e_card_no_input.closest('tr');
@@ -429,7 +429,7 @@ function card_e(card_no, target) {
 		break;
 	case 'btn':
 		return e_card_no_input.closest('tr')
-			.find('a[name="card_btn"]:first');
+			.find('a[name=card_btn]:first');
 		break;
 	}
 	return e_card_no_input;

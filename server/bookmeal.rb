@@ -9,8 +9,19 @@ QUERY_COOKIE_URL = 'http://bgy.gd.cn/mis/info/menu_info.asp' \
 QUERY_LOGIN_URL = 'http://bgy.gd.cn/mis/info/list.asp'
 QUERY_BOOKING_URL = 'http://bgy.gd.cn/mis/info/dc_info/dc3_new.asp'
 
+def get_login_token
+  init_cookie = RestClient.get(QUERY_COOKIE_URL).cookies.to_a.first.join('=')
+
+  RestClient.post(QUERY_LOGIN_URL, {
+                    :tbarno => card_no.to_s,
+                    :passwd => password.to_s,
+                    :hd => '001',
+                    :B1 => "\xc8\xb7\xb6\xa8"
+                  }, :cookie => init_cookie)
+  
+end
+
 def bookmeal(card_no, password)
-  cookie = RestClient.get(QUERY_COOKIE_URL).cookies.to_a.first.join('=')
 
   RestClient.post(QUERY_LOGIN_URL, {
                     :tbarno => card_no.to_s,
@@ -39,7 +50,7 @@ def bookmeal(card_no, password)
                              :B1 => "\xb1\xa3\xb4\xe6",
                            }.merge(fields.map {|a,b| {a=>b} }
                                      .inject({}, &:merge)),
-                           :cookie => cookie)
+                           :cookie=> cookie)
 
   result.include? "\xCD\xF8\xD2\xB3\xB9\xFD\xC6\xDA!!" and
     raise WrongCardPassword

@@ -109,10 +109,10 @@ if (detect_ie()){
 					</div>
 
 			        <ul>
-					<!-- <li><a href="javascript:void(0)" class="btn_add_card">Add Card</a></li> -->
 					<?php if($forum_is_login){?>
-					<li><a href="javascript:void(0)" class="btn_save">Save</a></li>
-					<?php };?>
+					<li><a href="javascript:void(0)" class="btn_save">Save</a></li><?php }else{ ?>
+		      			<li><a href="/member.php?mod=register" class="btn_register">Register</a></li>
+<?php }?>
 					<li><a href="javascript:void(0);" class="btn_book">Book Meal</a></li>
 					<?php if($forum_is_login){?>
 					<li><a href="/member.php?mod=logging&action=logout&formhash=<?php echo($forum_formhash);?>" class="btn_logout">Logout</a></li>
