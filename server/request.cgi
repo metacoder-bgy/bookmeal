@@ -116,7 +116,7 @@ def do_action(cgi, action, forum_uid)
     card_no = cgi['card_no']
     card_passwd = cgi['card_psw']
 
-    return bookmeal(card_no, card_passwd)
+    return do_batch(card_no, card_passwd)
 
   else
     raise_client_error
