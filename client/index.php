@@ -20,7 +20,8 @@ $forum_is_login = ( $forum_uid > 0 );
 
 function detect_ie(){
   if(isset($_SERVER['HTTP_USER_AGENT']) &&
-     (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false))
+     (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) &&
+     (!strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 9')))
     return true;
   else
     return false;
@@ -69,7 +70,7 @@ if (detect_ie()){
 	<meta name="Keywords" content="订餐 碧桂园 学校 Meal System CSG BGY" />
 	<meta name="Description" content="学生自助一键订餐系统，方便碧桂园学校学生集体订餐。" />
 	<link rel="home" href="http://bgy.xxx/" />
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
 	<script type="text/javascript" src="js/script.js" charset="utf-8"></script>
 </head>
