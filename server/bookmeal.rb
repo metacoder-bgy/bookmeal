@@ -19,13 +19,20 @@ def get_login_token(card_no, password)
                           :B1 => "\xc8\xb7\xb6\xa8"
                         }, :cookie => init_cookie)
 
+  # Wrong barcode
+  rst.include? "\xCB\xCC\xF5\xD0\xCE\xC2\xEB\xC3\xBB\xD3" and return false
+  # Wrong password
   rst.include? "\xCC\xF5\xD0\xCE\xC2\xEB\xB4\xED\xCE\xF3" and return false
+
   return init_cookie
 end
 
 def get_week_list(token)
-  RestClient.post(QUERY_BOOKING_URL, {}, :cookie => token).scan(/\d{8}/)
-    .sort.uniq.grep(/^20/)[1..-1]
+  RestClient.post(QUERY_BOOKING_URL, {}, :cookie => token)
+    .scan(/\d{8}/)
+    .sort
+    .uniq
+    .grep(/^20/)[1..-1]
 end
 
 def bookmeal(token, weekno)
@@ -51,7 +58,6 @@ def bookmeal(token, weekno)
                            }.merge(fields.map {|a,b| {a=>b} }
                                      .inject({}, &:merge)),
                            :cookie=> token)
-  return result
   return true
 
 rescue RestClient::InternalServerError
@@ -60,15 +66,18 @@ rescue RestClient::InternalServerError
 end
 
 def get_cached_week_list(token)
-  @week_list_cache ||= get_week_list
+  @_week_list_cache ||= get_week_list(token)
 end
 
 def do_batch(card_no, passwd)
   token = get_login_token(card_no, passwd)
+
   raise WrongCardPassword unless token
+
   get_cached_week_list(token).each do |week|
     bookmeal(token, week)
   end
+
   true
 end
 
