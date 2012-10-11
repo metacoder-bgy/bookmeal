@@ -89,6 +89,7 @@ def do_action(cgi, action, forum_uid)
     end
 
     card_count = cgi['card_count'] || raise_client_error
+
     1.upto(card_count.to_i) do |x|
       card_no = cgi["card#{x}_no"] || raise_client_error
       card_passwd = cgi["card#{x}_psw"] || raise_client_error
@@ -103,15 +104,20 @@ def do_action(cgi, action, forum_uid)
 
   when 'bookmeal_bydb'
     card_no = cgi['card_no'] || raise_client_error
-    card_passwd = get_card_password(forum_uid, card_no)
+    card_passwd = cgi['card_psw']
 
-    return bookmeal(card_no, card_passwd)
+    if card_passwd.nil? or card_passwd.empty?
+      card_passwd = get_card_password(forum_uid, card_no)
+    end
+
+    return do_batch(card_no, card_passwd)
 
   when 'bookmeal_bytmp'
     card_no = cgi['card_no']
     card_passwd = cgi['card_psw']
 
     return bookmeal(card_no, card_passwd)
+
   else
     raise_client_error
   end
@@ -121,11 +127,11 @@ end
 
 class String
   def underscore
-    self.gsub(/::/, '/').
-      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
-      gsub(/([a-z\d])([A-Z])/,'\1_\2').
-      tr("-", "_").
-      downcase
+    self.gsub(/::/, '/')
+      .gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+      .gsub(/([a-z\d])([A-Z])/,'\1_\2')
+      .tr("-", "_")
+      .downcase
   end
 end
 
