@@ -160,7 +160,7 @@ when Exception
     :error_message => :server_error,
     :server_error_type => result.class.to_s.underscore,
     :server_error_message => result.message,
-    :server_error_backtrace => result.backtrace
+#    :server_error_backtrace => result.backtrace
   }
 else
   json_hsh.merge!(:status => 'unknown',
