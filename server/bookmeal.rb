@@ -88,11 +88,7 @@ end
 if __FILE__ == $0
   require 'ap' or alias_method :ap, :p
 
-
-  
-
   token = get_login_token('0106298', '456852')
-#  puts token
   puts get_week_list(token)
 
   exit
