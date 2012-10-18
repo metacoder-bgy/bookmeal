@@ -58,7 +58,7 @@ var card_row_count = 0,
 			style: 'error',
 			delay: 3000
 		},
-		error: {
+		server_error: {
 			type: 'individual_notice',
 			message: '<p>Some problems occured on server!</p>',
 			style: 'error',
@@ -177,7 +177,7 @@ $(document)
 
 // Match with the notice table and handel the notice messages
 function notice_handler(notice_key, target) {
-	notice_key = (typeof notice_key == 'undefined') ? 'unknown_error' : notice_key;
+	notice_key = ((typeof notice_key == 'undefined') || (typeof notice_table[notice_key] == 'undefined')) ? 'unknown_error' : notice_key;
 	target = (typeof target == 'undefined') ? '' : target;
 	if(target != '') {
 		add_card_notice(target, notice_table[notice_key].message, notice_table[notice_key].style, notice_table[notice_key].delay);
