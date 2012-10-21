@@ -1,11 +1,13 @@
 
 
-class NoSuchForumUID < Exception; end
-class WrongCardPassword < Exception; end
-class NoSuchCard < Exception; end
-class CardAlreadyExist < Exception; end
-class ServerError < Exception; end
-class ClientError < Exception; end
+class KnownException < Exception; end
+
+class NoSuchForumUID < KnownException; end
+class WrongCardPassword < KnownException; end
+class NoSuchCard < KnownException; end
+class CardAlreadyExist < KnownException; end
+class ServerError < KnownException; end
+class ClientError < KnownException; end
 
 
 def raise_client_error
