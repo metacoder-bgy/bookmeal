@@ -94,7 +94,7 @@ body::-webkit-scrollbar-corner{background-clip:padding-box;background-color:#f5f
 
 #ctrl_panel_help{
 	background-color:rgba(0, 0, 0, 0.5);
-	margin-bottom:20px;
+	margin:5px 0;
 	padding:15px;
 	width:420px;
     -moz-border-radius: 50px;
@@ -124,7 +124,7 @@ div.notice.general{
 	margin-bottom: 10px;
 }
 
-div.notice.general.common{
+div.notice.common{
 	border-color:rgba(145, 255, 5, 0.5);
 	background-color:rgba(18, 150, 0, 0.6);
 	color:#AAFF83;
@@ -171,6 +171,12 @@ tr.error input{
 .btn_add_card{
 	padding:0 0 10px 25px;
 	background:url(../img/add.png) no-repeat;
+	background-size:20px;
+}
+
+.btn_register{
+	padding:0 0 10px 25px;
+	background:url(../img/register.png) no-repeat;
 	background-size:20px;
 }
 
@@ -263,7 +269,6 @@ input[type=submit],input[type=button]{
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
-    margin-right: 10px;
 }
 input[type=submit]:hover,input[type=button]:hover {
     color: #333;

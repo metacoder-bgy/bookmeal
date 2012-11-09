@@ -1,93 +1,93 @@
 var card_row_count = 0,
-request_url = 'http://69.163.34.129/cgi-bin/bookmeal/request.cgi',
-cards = [],
-book_count = 0,
-card_table = '#card_table',
-notice_table = {
-    not_login: {
-        type: 'general_notice',
-        message: '<p>Login is suggested.</p>',
-        style: 'common',
-        delay: 3000
-    },
-    cards_saved: {
-        type: 'general_notice',
-        message: '<p>Cards info saved!</p>',
-        style: 'common',
-        delay: 3000
-    },
-    unknown_error: {
-        type: 'general_notice',
-        message: '<p>Unknown Error Occured!</p>',
-        style: 'error',
-        delay: 3000
-    },
-    book_done: {
-        type: 'individual_notice',
-        message: '<p>Book meal completed!</p>',
-        style: 'common',
-        delay: 3000
-    },
-    no_password: {
-        type: 'individual_notice',
-        message: '<p>Please enter a password! OR login with the forum account.</p>',
-        style: 'error',
-        delay: 3000
-    },
-    no_such_forum_uid: {
-        type: 'individual_notice',
-        message: '<p>No such forum ID!</p>',
-        style: 'error',
-        delay: 3000
-    },
-    no_such_card: {
-        type: 'individual_notice',
-        message: '<p>No such card!</p>',
-        style: 'error',
-        delay: 3000
-    },
-    wrong_card_password: {
-        type: 'individual_notice',
-        message: '<p>Wrong password!</p>',
-        style: 'error',
-        delay: 3000
-    },
-    card_already_exist: {
-        type: 'individual_notice',
-        message: '<p>The card is already exist!</p>',
-        style: 'error',
-        delay: 3000
-    },
-    server_error: {
-        type: 'individual_notice',
-        message: '<p>Some problems occured on server!</p>',
-        style: 'error',
-        delay: 0
-    },
-    parsererror: {
-        type: 'individual_notice',
-        message: '<p>The data sent by server could not be parsed!</p>',
-        style: 'problem',
-        delay: 0
-    },
-    client_error: {
-        type: 'individual_notice',
-        message: '<p>Some problems occured on client!</p>',
-        style: 'problem',
-        delay: 0
-    }
-};
+    request_url = 'http://69.163.34.129/cgi-bin/bookmeal/request.cgi',
+    cards = [],
+    book_count = 0,
+    card_table = '#card_table',
+    notice_table = {
+        not_login: {
+            type: 'general_notice',
+            message: '<p>Login is suggested.</p>',
+            style: 'common',
+            delay: 3000
+        },
+        cards_saved: {
+            type: 'general_notice',
+            message: '<p>Cards info saved!</p>',
+            style: 'common',
+            delay: 3000
+        },
+        unknown_error: {
+            type: 'general_notice',
+            message: '<p>Unknown Error Occured!</p>',
+            style: 'error',
+            delay: 3000
+        },
+        book_done: {
+            type: 'individual_notice',
+            message: '<p>Book meal completed!</p>',
+            style: 'common',
+            delay: 3000
+        },
+        no_password: {
+            type: 'individual_notice',
+            message: '<p>Please enter a password! OR login with the forum account.</p>',
+            style: 'error',
+            delay: 3000
+        },
+        no_such_forum_uid: {
+            type: 'individual_notice',
+            message: '<p>No such forum ID!</p>',
+            style: 'error',
+            delay: 3000
+        },
+        no_such_card: {
+            type: 'individual_notice',
+            message: '<p>No such card!</p>',
+            style: 'error',
+            delay: 3000
+        },
+        wrong_card_password: {
+            type: 'individual_notice',
+            message: '<p>Wrong password!</p>',
+            style: 'error',
+            delay: 3000
+        },
+        card_already_exist: {
+            type: 'individual_notice',
+            message: '<p>The card is already exist!</p>',
+            style: 'error',
+            delay: 3000
+        },
+        server_error: {
+            type: 'individual_notice',
+            message: '<p>Some problems occured on server!</p>',
+            style: 'error',
+            delay: 0
+        },
+        parsererror: {
+            type: 'individual_notice',
+            message: '<p>The data sent by server could not be parsed!</p>',
+            style: 'problem',
+            delay: 0
+        },
+        client_error: {
+            type: 'individual_notice',
+            message: '<p>Some problems occured on client!</p>',
+            style: 'problem',
+            delay: 0
+        }
+    };
 
 // Start up ultility
 $(document)
-.ready(function() {
+    .ready(function () {
     if (forum_uid > 0) {
         $.getJSON(request_url, {
             forum_uid: forum_uid,
             action: 'lscard'
-        }, function(JSON) {
+        }, function (JSON) {
             if (JSON.status == 'ok') {
-                $.each(JSON.card_list, function(key, val) {
+                $.each(JSON.card_list, function (key, val) {
                     add_row(val);
                 });
                 add_row();
@@ -95,7 +95,7 @@ $(document)
             }
             notice_handler(JSON.error_message);
         })
-        .error(function(jqXHR, textStatus, errorThrown) {
+            .error(function (jqXHR, textStatus, errorThrown) {
             add_row();
             console.info(textStatus);
             notice_handler(textStatus);
@@ -106,23 +106,23 @@ $(document)
     }
 
     $('.btn_help')
-    .click(function() {
+        .click(function () {
         if ($(this)
-        .html() == 'Show Help') {
+            .html() == 'Show Help') {
             $('#ctrl_panel_help')
-            .show('slow');
+                .show('slow');
             $(this)
-            .html('Hide Help');
+                .html('Hide Help');
         } else {
             $('#ctrl_panel_help')
-            .hide('slow');
+                .hide('slow');
             $(this)
-            .html('Show Help');
+                .html('Show Help');
         }
     });
 
     $('.btn_remove_card')
-    .live('click', function() {
+        .live('click', function () {
         if (card_row_count <= 1) {
             return;
         } else {
@@ -130,52 +130,50 @@ $(document)
         }
 
         $(this)
-        .closest('tr')
-        .find('td > div')
-        .slideUp(300, 'easeOutExpo', function() {
-            $(this)
             .closest('tr')
-            .remove();
+            .find('td > div')
+            .slideUp(300, 'easeOutExpo', function () {
+            $(this)
+                .closest('tr')
+                .remove();
             reindex();
         });
     });
 
-    $('#card_table input')
-    .live('focus', function() {
+    $('#card_table input').live('focus', function () {
         if ($(this)
-        .closest('tr')
-        .find('label.card_id')
-        .html() == card_row_count)
-            add_row();
+            .closest('tr')
+            .find('label.card_id')
+            .html() == card_row_count) add_row();
     });
 
     $('.btn_save')
-    .click(function() {
+        .click(function () {
         save_cards();
     });
 
-    $('.btn_book')
-    .click(function() {
-        if(!book_count)
-            book_meal_start();
+    $('.btn_book').click(function () {
+        if (!book_count) book_meal_start();
     });
 
-    $('input')
-    .live('change', function() {
+    $(document).keypress(function (e) {
+        if (e.which == 13) $('.btn_book').click();
+    });
+
+    $('input').live('change', function () {
         update_cards();
     });
 
-    $('div.notice')
-    .live('click', function() {
+    $('div.notice').live('click', function () {
         $(this)
-        .hide('fast', function() {
+            .hide('fast', function () {
             $(this)
-            .closest('tr')
-            .remove();
+                .closest('tr')
+                .remove();
         });
     });
 
-});
+    });
 
 // Match with the notice table and handel the notice messages
 function notice_handler(notice_key, target) {
@@ -206,11 +204,11 @@ function add_row(card_no) {
     reindex();
 
     tr.find('td')
-    .wrapInner('<div style="display: block;" />')
-    .parent()
-    .find('td > div')
-    .hide()
-    .slideDown(300, 'easeOutExpo', function() {
+        .wrapInner('<div style="display: block;" />')
+        .parent()
+        .find('td > div')
+        .hide()
+        .slideDown(300, 'easeOutExpo', function () {
         reindex();
     });
 }
@@ -225,30 +223,30 @@ function add_card_notice(card_no, notice_content, notice_style, hide_delay) {
         name: 'card_notice_' + card_no,
         'class': 'individual notice ' + notice_style
     })
-    .append(notice_content)
-    .hide();
+        .append(notice_content)
+        .hide();
 
     var tr_notice = $('<tr />')
-    .append($('<td />'))
-    .append($('<td />', {
+        .append($('<td />'))
+        .append($('<td />', {
         colspan: '2'
     })
-    .append(
+        .append(
     div_notice));
 
     card_e(card_no, 'tr')
-    .after(tr_notice);
+        .after(tr_notice);
 
     update_input_style(card_no, notice_style);
 
-    div_notice.show(300, 'easeOutExpo', function() {
+    div_notice.show(300, 'easeOutExpo', function () {
         if (hide_delay) {
             $(this)
-            .delay(hide_delay)
-            .hide('fast', function() {
+                .delay(hide_delay)
+                .hide('fast', function () {
                 $(this)
-                .closest('tr')
-                .remove();
+                    .closest('tr')
+                    .remove();
             });
         }
     });
@@ -263,17 +261,17 @@ function add_general_notice(notice_content, notice_style, hide_delay) {
         'class': 'general notice ' + notice_style
     });
     div_notice.append(notice_content)
-    .hide();
+        .hide();
 
     target.after(div_notice);
 
-    div_notice.show(300, 'easeOutExpo', function() {
+    div_notice.show(300, 'easeOutExpo', function () {
         if (hide_delay) {
             $(this)
-            .delay(hide_delay)
-            .hide('fast', function() {
+                .delay(hide_delay)
+                .hide('fast', function () {
                 $(this)
-                .remove();
+                    .remove();
             });
         }
     });
@@ -284,19 +282,19 @@ function update_input_style(card_no, new_style) {
     new_style = (typeof new_style == 'undefined') ? '' : new_style;
     var table = $(card_table);
     card_e(card_no, 'tr')
-    .attr('class', new_style);
+        .attr('class', new_style);
 }
 
 // Automatically index the row labels
 function reindex() {
     var table = $(card_table);
     table.find('label.card_id')
-    .each(function(i, e) {
+        .each(function (i, e) {
         $(e)
-        .html(i + 1);
+            .html(i + 1);
         $(e)
-        .closest('tr')
-        .attr('name', 'card_row_' + (i + 1));
+            .closest('tr')
+            .attr('name', 'card_row_' + (i + 1));
     });
 }
 
@@ -305,21 +303,20 @@ function update_cards() {
     var table = $(card_table);
     cards = [];
     table.find('label.card_id')
-    .each(function(i, e) {
+        .each(function (i, e) {
         var card_no = $(e)
-        .closest('tr')
-        .find('input.card_no')
-        .val(),
-        card_psw = $(e)
-        .closest('tr')
-        .find('input.card_psw')
-        .val();
-        if (card_no != '')
-            cards.push({
-                index: i,
-                card_no: card_no,
-                card_psw: card_psw
-            });
+            .closest('tr')
+            .find('input.card_no')
+            .val(),
+            card_psw = $(e)
+                .closest('tr')
+                .find('input.card_psw')
+                .val();
+        if (card_no != '') cards.push({
+            index: i,
+            card_no: card_no,
+            card_psw: card_psw
+        });
     });
 }
 
@@ -337,14 +334,15 @@ function save_cards() {
     }
     $.getJSON(request_url,
     post_data,
-    function(JSON) {
+
+    function (JSON) {
         if (JSON.status == 'ok') {
             notice_handler("cards_saved");
         } else {
             notice_handler(JSON.error_message);
         }
     })
-    .error(function(jqXHR, textStatus, errorThrown) {
+        .error(function (jqXHR, textStatus, errorThrown) {
         notice_handler(textStatus);
     });
 }
@@ -354,9 +352,9 @@ function book_meal_start() {
     update_cards();
     for (i in cards) {
         var card_no = cards[i].card_no,
-        card_psw = cards[i].card_psw,
-        index = cards[i].index,
-        post_data = {};
+            card_psw = cards[i].card_psw,
+            index = cards[i].index,
+            post_data = {};
 
         update_input_style(card_no)
 
@@ -379,31 +377,30 @@ function book_meal_start() {
             notice_handler('no_password', card_no);
         } else {
             card_e(card_no, 'btn')
-            .html('<img height=20 width=20 src="img/waiting.gif"/>')
-            .attr('class', 'btn_none');
+                .html('<img height=20 width=20 src="img/waiting.gif"/>')
+                .attr('class', 'btn_none');
 
             book_count++;
 
-            $.getJSON(request_url, post_data, (function(this_card_no) {
-                return function(JSON) {
+            $.getJSON(request_url, post_data, (function (this_card_no) {
+                return function (JSON) {
                     if (JSON.status == 'ok') {
                         notice_handler('book_done', this_card_no);
                     } else {
                         notice_handler(JSON.error_message, this_card_no);
                     }
                 };
-            }(card_no))
-            )
-            .error((function(this_card_no) {
-                return function(jqXHR, textStatus, errorThrown) {
+            }(card_no)))
+                .error((function (this_card_no) {
+                return function (jqXHR, textStatus, errorThrown) {
                     notice_handler(textStatus, this_card_no);
                 };
             }(card_no)))
-            .complete((function(this_card_no) {
-                return function(jqXHR, textStatus, errorThrown) {
+                .complete((function (this_card_no) {
+                return function (jqXHR, textStatus, errorThrown) {
                     card_e(this_card_no, 'btn')
-                    .html('Delete')
-                    .attr('class', 'btn_remove_card');
+                        .html('Delete')
+                        .attr('class', 'btn_remove_card');
 
                     book_count--;
                 };
@@ -428,15 +425,15 @@ function card_e(card_no, target) {
             break;
         case 'index':
             return e_card_no_input.closest('tr')
-            .find('label.card_id:first');
+                .find('label.card_id:first');
             break;
         case 'psw':
             return e_card_no_input.closest('tr')
-            .find('input.card_psw:first');
+                .find('input.card_psw:first');
             break;
         case 'btn':
             return e_card_no_input.closest('tr')
-            .find('a[name=card_btn]:first');
+                .find('a[name=card_btn]:first');
             break;
     }
     return e_card_no_input;

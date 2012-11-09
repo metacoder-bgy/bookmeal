@@ -20,8 +20,7 @@ $forum_is_login = ( $forum_uid > 0 );
 
 function detect_ie(){
   if(isset($_SERVER['HTTP_USER_AGENT']) &&
-     (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) &&
-     (!strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 9')))
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false))
     return true;
   else
     return false;
@@ -40,7 +39,7 @@ if (detect_ie()){
     <hr />
     <p>
       <ul>
-	<li><a href="http://www.google.com/chrome/">Google Chrome</a></li>
+	<li><a href="file:///10.166.1.221/%E5%A4%A7%E5%AD%A6%E9%A2%84%E7%A7%91/%E4%B8%AA%E4%BA%BA%E6%96%87%E4%BB%B6%E4%B8%AD%E8%BD%AC/public/Chrome.zip">Google Chrome</a></li>
 	<li><a href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a></li>
       </ul>
     </p>
@@ -88,13 +87,24 @@ if (detect_ie()){
 			<?php }else{ ?>
 			<div id="login_panel">
 				<form method="post" autocomplete="off" id="forum_login_form" action="/member.php?mod=logging&amp;action=login&amp;loginsubmit=yes&amp;infloat=yes&amp;lssubmit=yes">
-					<input type="text" name="username" id="forum_username" placeholder="Forum ID"/>
-					<input type="password" name="password" id="forum_password" placeholder="Password"/>
+					<input type="text" name="username" id="forum_username" placeholder="Forum ID" style="width:150px"/>
+					<input type="password" name="password" id="forum_password" placeholder="Password" style="width:100px"/>
 					<input type="submit" name="submit" id="forum_submit" value="Login"/>
+					<input type="button" name="btn_register" id="btn_register" onclick="window.location = '/member.php?mod=register'" value="Register"/>
 				</form>
 			</div>
 			<?php };?>
 			<div id="ctrl_panel">
+			    <ul>
+			    	<li><a href="javascript:void(0);" class="btn_book">Book Meal</a></li>
+					<?php if($forum_is_login){?>
+					<li><a href="javascript:void(0)" class="btn_save">Save</a></li>
+					<?php } ?>
+					<?php if($forum_is_login){?>
+					<li><a href="/member.php?mod=logging&action=logout&formhash=<?php echo($forum_formhash);?>" class="btn_logout">Logout</a></li>
+					<?php };?>
+					<li><a href="javascript:void(0);" class="btn_help">Show Help</a></li>
+				</ul>
 				<div id="ctrl_panel_help" style="display:none;">
 					<h2>How to use</h2>
 					<p>We recommend to use this tool with your forum account, because only the forum users can store their cards info. So please login the forum if you can.</p>
@@ -107,19 +117,7 @@ if (detect_ie()){
 		  			  <small>Client by <a href="//rixtox.com/">RixTox</a> &bull;
 					Server by <a href="//github.com/shouya">Shou Ya</a></small>
 					</p>
-					</div>
-
-			        <ul>
-					<?php if($forum_is_login){?>
-					<li><a href="javascript:void(0)" class="btn_save">Save</a></li><?php }else{ ?>
-		      			<li><a href="/member.php?mod=register" class="btn_register">Register</a></li>
-<?php }?>
-					<li><a href="javascript:void(0);" class="btn_book">Book Meal</a></li>
-					<?php if($forum_is_login){?>
-					<li><a href="/member.php?mod=logging&action=logout&formhash=<?php echo($forum_formhash);?>" class="btn_logout">Logout</a></li>
-					<?php };?>
-					<li><a href="javascript:void(0);" class="btn_help">Show Help</a></li>
-				</ul>
+				</div>
 			</div>
 			<table id="card_table">
 				<tr>
@@ -131,7 +129,7 @@ if (detect_ie()){
 			</table>
 	</div>
 	<div id="footer">
-		<p>Copyright &copy; 2012, Shou & Rix</p>
+		<p>Copyright &copy; 2012, Metacoder</p>
 	</div>
 </body>
 </html>
