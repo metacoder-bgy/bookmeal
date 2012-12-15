@@ -46,7 +46,7 @@ input{
 }
 
 html {
-background:url(../img/low_contrast_linen.png);
+background:url(../img/low_contrast_linen.png) fixed;
 }
 
 * {
