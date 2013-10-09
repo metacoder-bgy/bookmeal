@@ -2,16 +2,10 @@
 Bookmeal is a project that helps students in Guangdong Contry Garden
 School to book their monthly meal conveniently.
 
-Demo: http://bgy.xxx/tools/bookmeal/
+Demo: http://app.sb.gy/bookmeal/
 
 # Setting Up
 _Note this project is just for fixed request format of CGS only._
-
-Requirements:
-
-* PHP server environment
-* Ruby CGI page server env
-* Discuz! forum system
 
 Steps:
 
@@ -23,13 +17,6 @@ Steps:
 4. Adjust the global variable `request_url` in `client/js/script.js`
    to the corresponding `request.cgi` of the server.
 5. Hard code `SITE_ROOT` to the `client/js/index.php`.
-
-
-# Usage
-For normal user, there are kind of operations:
-
-1. Login -> Fill the card numbers & passwords -> Save -> Book
-2. Just fill the info -> Book
 
 
 # License
