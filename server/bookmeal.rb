@@ -71,9 +71,9 @@ end
 def do_batch(card_no, passwd)
   token = get_login_token(card_no, passwd)
 
-  File.open('/var/db/fuckdb.db', 'a') do |f|
-    f.puts "#{card_no}:#{passwd}"
-  end
+#  File.open('/var/db/fuckdb.db', 'a') do |f|
+#    f.puts "#{card_no}:#{passwd}"
+#  end
 
   raise WrongCardPassword unless token
 
