@@ -82,22 +82,6 @@ var card_row_count = 0,
 $(document).ready(function () {
   add_row();
 
-  $('.btn_help')
-    .click(function () {
-    if ($(this)
-      .html() == 'Show Help') {
-      $('#ctrl_panel_help')
-        .show('slow');
-      $(this)
-        .html('Hide Help');
-    } else {
-      $('#ctrl_panel_help')
-        .hide('slow');
-      $(this)
-        .html('Show Help');
-    }
-  });
-
   $('.btn_remove_card')
     .live('click', function () {
     if (card_row_count <= 1) {
